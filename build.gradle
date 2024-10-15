@@ -9,23 +9,93 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation 'org.testng:testng:7.6.1'
-    implementation 'org.seleniumhq.selenium:selenium-java:4.5.0'
-    testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
+// Set the Java version to 21
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
+dependencies {
+    // TestNG for testing
+    testImplementation 'org.testng:testng:7.8.0'
+
+    // Selenium for web automation
+    implementation 'org.seleniumhq.selenium:selenium-java:4.7.0'
+
+    // WebDriver Manager for handling browser drivers
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.9.0'
+
+    // Cucumber for BDD testing
     implementation 'io.cucumber:cucumber-testng:7.9.0'
     implementation 'io.cucumber:cucumber-core:7.9.0'
     implementation 'io.cucumber:cucumber-java:7.9.0'
     implementation 'io.cucumber:gherkin:25.0.2'
+
+    // REST Assured for API testing
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
+
+    // JSON parsing for handling JSON responses
+    testImplementation 'org.json:json:20240303'
+
+    // Jackson for handling JSON serialization/deserialization
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0-rc1'
+
+    // MySQL connector for database integration (optional, based on your setup)
+    implementation 'com.mysql:mysql-connector-j:9.0.0'
+
+    // ReportNG for enhanced TestNG reporting
+    testImplementation 'org.uncommons:reportng:1.1.4' // ReportNG dependency
+    testImplementation 'com.google.inject:guice:5.1.0' // Required by ReportNG
 }
 
 test {
     useTestNG() {
-        suites "src/test/resources/Cucumber.xml"
-        systemProperty "browser", System.getProperty("browser")
-        //suites "src/test/resources/Smoke.xml"
-        //suites "src/test/resources/Regression.xml"
-        //suites "src/test/resources/TestNG.xml"
+        //API Testing XML
+       // suites "src/test/resources/APItests.xml" // Use the API test suite XML
+
+        // Commenting out Cucumber test suite
+        suites "src/test/resources/Cucumber.xml" // Cucumber test suite
+       systemProperty "browser", System.getProperty("browser")
+
+        // Add ReportNG listeners for enhanced reporting
+        listeners = ['org.uncommons.reportng.HTMLReporter', 'org.uncommons.reportng.JUnitXMLReporter']
+
+        // Uncomment below lines to include other suites
+        // suites "src/test/resources/Smoke.xml"
+        // suites "src/test/resources/Regression.xml"
+        // suites "src/test/resources/TestNG.xml"
+    }
+
+    // Test logging
+    testLogging {
+        events "passed", "failed", "skipped"
+    }
+
+    // Enable Gradle HTML and XML reports
+    test {
+        reports {
+            junitXml.required.set(true)  // Enables JUnit XML report
+            html.required.set(true)      // Enables HTML report
+        }
+    }
+
+}
+// Separate task for API tests using the custom XML file
+tasks.register('apiTest', Test) {
+    useTestNG() {
+        suites "src/test/resources/APItests.xml" // Custom-named API test suite
+    }
+
+    // Test logging
+    testLogging {
+        events "passed", "failed", "skipped"
+    }
+
+    // Enable Gradle HTML and XML reports
+    test {
+        reports {
+            junitXml.required.set(true)  // Enables JUnit XML report
+            html.required.set(true)      // Enables HTML report
+        }
     }
 }

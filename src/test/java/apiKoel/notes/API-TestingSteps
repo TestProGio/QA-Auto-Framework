@@ -1,0 +1,48 @@
+STEPS FOR API TESTING
+Note: JSON path syntax has to be from RESTAssured Library 
+- Create new package (project name) for API if not created already
+- Under src > test > java
+- Review API Documentation
+- Check if Postman matches
+- new class - name of function
+- Within class create method with same name lowercase
+- Include @Test in method and import
+- Import static io.restassured.RestAssured.*;
+- Write steps of test
+Example:
+given().when().
+    get("endPointURL").
+    then().assertThat().statusCode(200);
+
+    Then run as testNG test
+    Never trust a test if it doesn't fail
+
+//GET Response with IDs
+    Response response = RestAssured.get("https:endpoint");
+    response.print();
+
+    //Verify response 200
+    Assert.assertEquals(response.getStatusCode(), 200, "Status code is not as expected "200";
+
+    // Verify at least 1 booking ID
+    List<Integer> bookingIds = response.jsonPath().getList("Name of Variable");
+    Assert.assertFalse(bookingIds.isEmpty(), "List of Booking IDs are empty incorrectly");
+
+Run as TestNG
+Hard Assertion if it fails it stops (Ideal for 200 codes)
+Soft Assertion won't fail until the end
+
+// Verify All Fields
+SoftAssert.softAssert = new SoftAssert();
+String actualFirstName = response.jsonPath().getString ("first name")
+softAssert.assetEquals = (Sting actual, String expected); // actualFirstName, "Susan", firstName in response is not expected);
+
+int price = response.jsonPath().getInt("totalprice");
+softAssert.assertEquals = (price, 440, "total price in response is not expected"
+
+boolean depositPaid = response.jsonPath().getBoolean("depositPaid");
+softAssert.assertTrue(depositPaid, "Should be true if it fails");
+
+softAssert.assertAll();
+
+

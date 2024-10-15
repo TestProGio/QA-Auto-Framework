@@ -116,10 +116,6 @@ public class BaseTest {
         }
     }
 
-    /*@AfterMethod
-    public void closeBrowser(){
-        driver.quit();
-    }*/
 
     @AfterMethod
     public void tearDown(){

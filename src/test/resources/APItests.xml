@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="API Test Suite">
+    <test name="API Tests">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <!-- <class name="apiKoel.KoelLogin"/>-->
+            <!-- <class name="apiKoel.CreateNewPlaylist"/>-->
+            <!-- <class name="apiKoel.UnlikeMultipleSongs"/> -->
+            <!--<class name="apiKoel.LikeSongTest"/>-->
+           <class name="apiKoel.LoginAPITest"/>
+          <class name="apiKoel.TestCreatePlaylist"/>
+          <class name="apiKoel.UnlikeSongTest"/>
+
+        </classes>
+    </test>
+</suite>

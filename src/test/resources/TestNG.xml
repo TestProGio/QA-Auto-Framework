@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="TestNG" parallel="methods" thread-count="2">
+<suite name="TestNG" parallel="methods" thread-count="1">
     <parameter name="BaseURL" value="https://qa.koel.app/"/>
     <test name="Example Test" preserve-order="false">
         <classes>
-            <class name="LoginTests"/>
-            <class name="BaseTest"/>
+            <!--<class name="LoginTests"/>-->
+           <!-- <class name="BaseTest"/>-->
             <!-- <class name="ProfileTests"/>-->
             <!--<class name="ActionsTest"/>-->
+            <!--<class name="stepDefinitions.PositiveTests"/>-->
          </classes>
      </test>
  </suite>
